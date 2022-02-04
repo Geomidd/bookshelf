@@ -16,6 +16,12 @@ class Types::AuthorType < Types::BaseObject
   field :coordinates, Types::CoordinatesType, null: false
   field :publication_years, [Int], null: false
 
+  # Errors
+  field :errors, [Types::ErrorType], null:true
+  def errors
+    object.errors.map { |e| { field_name: e.attribute, errors: object.errors[e.attribute] } }
+  end
+
 end
 
 class Types::AuthorInputType < GraphQL::Schema::InputObject
