@@ -24,9 +24,10 @@ module Types
       Author.where(id: id).first
     end
 
-    field :authors, [Types::AuthorType], {null: true, description: "Returns array of Author instances"}
+    field :authors, [Types::AuthorType], {null: true, description: "Returns array of Author instances", scope: true}
     def authors
-      Author.all
+      authors = Author.all
+      authors
     end
 
     field :login, String, null: true, description: "Login a user" do

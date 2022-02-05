@@ -22,6 +22,14 @@ class Types::AuthorType < Types::BaseObject
     object.errors.map { |e| { field_name: e.attribute, errors: object.errors[e.attribute] } }
   end
 
+  def self.authorized?(object, context)
+    !object.is_alive?
+  end
+
+  def self.scope_items(items, context)
+    items.select { |i| authorized?(i, context) }
+  end
+
 end
 
 class Types::AuthorInputType < GraphQL::Schema::InputObject
